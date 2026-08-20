@@ -1,0 +1,45 @@
+name: Build MCXW72 OpenThread
+
+on:
+  push:
+    branches: [ "main", "release/*" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies (bootstrap)
+        run: |
+          chmod +x script/bootstrap
+          ./script/bootstrap
+
+      - name: Download NXP MCXW72 SDK
+        run: |
+          chmod +x third_party/nxp_matter_support/scripts/update_nxp_sdk.py
+          ./third_party/nxp_matter_support/scripts/update_nxp_sdk.py --platform common
+
+      - name: Set environment variables
+        run: |
+          echo "ARMGCC_DIR=/usr/local" >> $GITHUB_ENV
+          source ./third_party/nxp_matter_support/github_sdk/sdk_next/repo/mcuxsdk/mcux-env.sh
+          west mcuxsdk-export
+
+      - name: Build MCXW72 examples
+        run: |
+          chmod +x script/build_mcxw72
+          ./script/build_mcxw72
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcxw72-firmware
+          path: build_mcxw72/bin/
