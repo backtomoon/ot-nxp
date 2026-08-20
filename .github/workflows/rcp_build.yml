@@ -22,6 +22,11 @@ jobs:
           chmod +x script/bootstrap
           ./script/bootstrap
 
+      - name: Install west
+        run: |
+          pip3 install --user -U west
+          echo "$HOME/.local/bin" >> $GITHUB_PATH  
+
       - name: Download NXP MCXW72 SDK
         run: |
           chmod +x third_party/nxp_matter_support/scripts/update_nxp_sdk.py
