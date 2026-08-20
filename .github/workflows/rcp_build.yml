@@ -22,6 +22,18 @@ jobs:
           chmod +x script/bootstrap
           ./script/bootstrap
 
+      - name: Install ARM GCC 14.2
+        run: |
+          ARCH=$(arch)
+          cd /tmp
+          wget --tries=4 --no-check-certificate --quiet -c \
+          https://developer.arm.com/-/media/Files/downloads/gnu/14.2.rel1/binrel/arm-gnu-toolchain-14.2.rel1-${ARCH}-arm-none-eabi.tar.xz
+          sudo tar -xJf arm-gnu-toolchain-14.2.rel1-${ARCH}-arm-none-eabi.tar.xz -C /opt
+          sudo ln -s -f /opt/arm-gnu-toolchain-14.2.rel1-${ARCH}-arm-none-eabi /opt/arm-gcc-14
+          echo "ARMGCC_DIR=/opt/arm-gcc-14" >> $GITHUB_ENV
+          echo "/opt/arm-gcc-14/bin" >> $GITHUB_PATH
+          /opt/arm-gcc-14/bin/arm-none-eabi-gcc --version
+    
       - name: Install west
         run: |
           pip3 install --user -U west
@@ -34,7 +46,7 @@ jobs:
 
       - name: Set environment variables
         run: |
-          #echo "ARMGCC_DIR=/usr/local/" >> $GITHUB_ENV
+          echo "ARMGCC_DIR=/opt/arm-gcc-14" >> $GITHUB_ENV
           source ./third_party/nxp_matter_support/github_sdk/sdk_next/repo/mcuxsdk/mcux-env.sh
           echo "ZEPHYR_BASE=$ZEPHYR_BASE" >> $GITHUB_ENV
           west mcuxsdk-export
