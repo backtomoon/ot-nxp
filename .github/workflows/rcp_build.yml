@@ -34,7 +34,7 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "ARMGCC_DIR=/usr/local/bin" >> $GITHUB_ENV
+          echo "ARMGCC_DIR=/usr/local/" >> $GITHUB_ENV
           source ./third_party/nxp_matter_support/github_sdk/sdk_next/repo/mcuxsdk/mcux-env.sh
           echo "ZEPHYR_BASE=$ZEPHYR_BASE" >> $GITHUB_ENV
           west mcuxsdk-export
