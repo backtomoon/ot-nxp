@@ -1,10 +1,6 @@
 name: Build MCXW72 OpenThread
 
 on:
-  push:
-    branches: [ "main", "release/*" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
