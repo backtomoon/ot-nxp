@@ -67,4 +67,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: mcxw72-firmware
-          path: build_mcxw72/bin/
+          path: build_mcxw72/rcp_bin/bin/
