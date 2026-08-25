@@ -209,6 +209,8 @@ create_directory_and_build()
         build_ot_cli_ftd_ble_shell "$@"
     elif [ "$1" == 'ot_cli_nvs' ]; then
         build_ot_cli_nvs "$@"
+    elif [ "$1" == 'ot_with_rcp_image' ]; then
+        build_ot_with_rcp_image "$@"
     else
         echo >&2 "Unsupported action: $1. Supported: all, ot_without_rcp_image, ot_cli_ftd_ble_shell, build_ot_cli_nvs"
         # 128 for Invalid arguments
