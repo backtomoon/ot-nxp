@@ -57,8 +57,9 @@ readonly OT_OPTIONS_NO_RCP=(
 
 readonly OT_OPTIONS_RCP=(
     "-DOT_APP_NCP=OFF"
-    "-DOT_APP_RCP=OFF"
+    "-DOT_APP_RCP=ON"
     "-DOT_RCP=ON"
+    "-DOT_NCP_SPI=ON"
     "-DOT_MAC_CSL_RECEIVER_ENABLE=ON"
     "-DOT_APP_LOWPOWER=ON"
     "-DOT_NXP_NVS=ON"
