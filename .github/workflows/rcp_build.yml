@@ -50,7 +50,7 @@ jobs:
       - name: Build MCXW72 examples
         run: |
           chmod +x script/build_mcxw72
-          ./script/build_mcxw72
+          ./script/build_mcxw72 build_ot_with_rcp_image
 
       - name: Generate build directory tree
         run: |
